@@ -2,6 +2,10 @@ net stop wuauserv
 net stop cryptSvc
 net stop bits
 net stop msiserver
+net stop msiserver
+net stop msiserver
+net stop msiserver
+net stop msiserver
 
 net stop AppIDSvc
 
@@ -29,7 +33,7 @@ dism /online /cleanup-image /restorehealth
 dism /online /cleanup-image /StartComponentCleanup
 sfc /scannow
 powershell
-Get-AppXPackage -AllUsers |Where-Object {$_.InstallLocation -like ì*SystemApps*î} | Foreach {Add-AppxPackage -DisableDevelopmentMode -Register ì$($_.InstallLocation)\\AppXManifest.xmlî}
+Get-AppXPackage -AllUsers |Where-Object {$_.InstallLocation -like ‚Äú*SystemApps*‚Äù} | Foreach {Add-AppxPackage -DisableDevelopmentMode -Register ‚Äú$($_.InstallLocation)\\AppXManifest.xml‚Äù}
 
 
 Add-AppxPackage : Deployment failed with HRESULT: 0x80073D02, The
@@ -44,7 +48,7 @@ command line Get-AppxLog -ActivityID
 ceeb8e86-f5ca-0001-4ba9-ebcecaf5d301
 At line:1 char:94
 + ...  | Foreach {Add-AppxPackage -DisableDevelopmentMode -Register
-ì$($_.I ...
+‚Äú$($_.I ...
 +
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     + CategoryInfo          : NotSpecified: (C:\Windows\Syst...ppXM
