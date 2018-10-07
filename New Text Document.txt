@@ -1,0 +1,53 @@
+net stop wuauserv
+net stop cryptSvc
+net stop bits
+net stop msiserver
+
+net stop AppIDSvc
+
+Ren c:\Windows\SoftwareDistribution SoftwareDistribution.old
+
+Ren c:\Windows\SoftwareDistribution SoftwareDistribution.old
+
+net start wuauserv
+net start cryptSvc
+net start bits
+net start msiserver
+
+net start AppIDSvc
+
+exit
+
+open winows powershall as administrator
+
+wuauclt.exe /updatenow
+exit
+
+
+WSReset.exe
+dism /online /cleanup-image /restorehealth
+dism /online /cleanup-image /StartComponentCleanup
+sfc /scannow
+powershell
+Get-AppXPackage -AllUsers |Where-Object {$_.InstallLocation -like “*SystemApps*”} | Foreach {Add-AppxPackage -DisableDevelopmentMode -Register “$($_.InstallLocation)\\AppXManifest.xml”}
+
+
+Add-AppxPackage : Deployment failed with HRESULT: 0x80073D02, The
+package could not be installed because resources it modifies are
+currently in use.
+error 0x80073D02: Unable to install because the following apps need
+to be closed Microsoft.Windows.ShellExperienceHost_10.0.16299.402_ne
+utral_neutral_cw5n1h2txyewy.
+NOTE: For additional information, look for [ActivityId]
+ceeb8e86-f5ca-0001-4ba9-ebcecaf5d301 in the Event Log or use the
+command line Get-AppxLog -ActivityID
+ceeb8e86-f5ca-0001-4ba9-ebcecaf5d301
+At line:1 char:94
++ ...  | Foreach {Add-AppxPackage -DisableDevelopmentMode -Register
+“$($_.I ...
++
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (C:\Windows\Syst...ppXM
+   anifest.xml:String) [Add-AppxPackage], Exception
+    + FullyQualifiedErrorId : DeploymentError,Microsoft.Windows.App
+   x.PackageManager.Commands.AddAppxPackageCommand
